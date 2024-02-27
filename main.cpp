@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 	// TODO: prendre en compte les arguments
 
 	for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
-		std::cout << dir_entry.path().filename() << " ";
+		std::cout << dir_entry.path().filename().generic_string() << ", ";
 	}
 
 	std::cout << std::endl;
