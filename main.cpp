@@ -1,18 +1,16 @@
 #include <iostream>
-#include <Windows.h> // WINAPI
+
+// RUNS ON C++17 !!!
+#include <filesystem>
+
+
+namespace filesystem = std::filesystem;
 
 int main(int argc, char** argv) {
 
-	char cwdName[MAX_PATH];
+	filesystem::path currentWorkingDirectory = filesystem::current_path();
 
-	GetCurrentDirectoryA(MAX_PATH, cwdName);
-
-	if (argc == 1) {
-
-	}
-	else {
-
-	}
+	std::cout << currentWorkingDirectory << std::endl;
 
 	return EXIT_SUCCESS;
 }
