@@ -10,7 +10,13 @@ int main(int argc, char** argv) {
 
 	filesystem::path currentWorkingDirectory = filesystem::current_path();
 
-	std::cout << currentWorkingDirectory << std::endl;
+	// TODO: prendre en compte les arguments
+
+	for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+		std::cout << dir_entry.path() << " ";
+	}
+
+	std::cout << std::endl;
 
 	return EXIT_SUCCESS;
 }
