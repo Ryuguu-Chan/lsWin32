@@ -4,30 +4,25 @@
 #include <Windows.h>
 #endif
 
+// debug
+#include <iostream>
+
 namespace Console {
 
 #ifdef _WIN32
-	bool setCursorPosition(SHORT x, SHORT y) {
-
-		/*
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
+	BOOL setCursorPosition(SHORT x, SHORT y) {
 
 		COORD coordinates;
 		coordinates.X = x;
 		coordinates.Y = y;
 
-		HANDLE consoleOutputHandle = STD_OUTPUT_HANDLE;
-
-		return SetConsoleCursorPosition(consoleOutputHandle, coordinates);
-		*/
-
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		csbi.dwCursorPosition.X = x;
-		csbi.dwCursorPosition.Y = y;
+		return SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
 	}
 
 	COORD getCursorPosition() {
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+		
 		return csbi.dwCursorPosition;
 	}
 #endif

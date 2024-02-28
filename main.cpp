@@ -9,6 +9,7 @@
 #include "Compute.h"
 #include "appStrings.h"
 #include "Actions.h"
+#include "Console.h"
 
 
 namespace filesystem = std::filesystem;
@@ -55,7 +56,12 @@ int main(int argc, char** argv) {
 				
 				for (auto const& dir_entry : filesystem::directory_iterator { currentWorkingDirectory }) {
 
-					std::cout << dir_entry.path().filename().generic_string() << '\t';
+					std::cout << dir_entry.path().filename().generic_string();
+
+					if (!Console::setCursorPosition(20, Console::getCursorPosition().Y)) {
+						std::cout << "bug!" << std::endl << std::endl;
+					}
+
 					std::cout << "some attributes..." << std::endl;
 				}
 
