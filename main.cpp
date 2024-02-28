@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 
 					std::cout << dir_entry.path().filename().generic_string();
 
-					if (!Console::setCursorPosition(20, Console::getCursorPosition().Y)) {
+					if (!Console::setCursorPosition(40, Console::getCursorPosition().Y)) {
 						std::cout << "bug!" << std::endl << std::endl;
 					}
 
