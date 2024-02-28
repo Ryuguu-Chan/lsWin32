@@ -2,6 +2,10 @@
 
 #include <iostream> // _MAX_PATH
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 namespace Compute {
 	const char* removePollutingDoubleBackslashe(const char* str) {
 		char* out[_MAX_PATH] { 0 };
@@ -33,4 +37,17 @@ namespace Compute {
 
 		return true;
 	}
+
+#ifdef _WIN32
+	LPCWSTR constCharToLPCWSTR(const char* str) {
+
+		LPCWSTR out = L"";
+
+		for (int i = 0; i < strlen(str); i++) {
+			out += str[i];
+		}
+
+		return out;
+	}
+#endif
 }

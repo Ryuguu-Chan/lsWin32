@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <Windows.h> // DWORD, GetFileAttributes
+
 // RUNS ON C++17 !!!
 // compiler used: Visual Studio C++ compiler
 #include <filesystem> 
@@ -59,10 +61,13 @@ int main(int argc, char** argv) {
 					std::cout << dir_entry.path().filename().generic_string();
 
 					if (!Console::setCursorPosition(40, Console::getCursorPosition().Y)) {
-						std::cout << "bug!" << std::endl << std::endl;
+						return EXIT_FAILURE;
 					}
 
-					std::cout << "some attributes..." << std::endl;
+					HANDLE hFile = CreateFile(
+						dir_entry.path().filename().generic_string().c_str(),
+
+					);
 				}
 
 				return EXIT_SUCCESS;
