@@ -134,6 +134,7 @@
     <ClInclude Include="Actions.h" />
     <ClInclude Include="appStrings.h" />
     <ClInclude Include="Compute.h" />
+    <ClInclude Include="Console.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
