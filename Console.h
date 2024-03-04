@@ -4,8 +4,8 @@
 #include <Windows.h>
 #endif
 
-// debug
-#include <iostream>
+
+#include <iostream> // std::cout << std::newline
 
 namespace Console {
 
@@ -24,6 +24,10 @@ namespace Console {
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 		
 		return csbi.dwCursorPosition;
+	}
+
+	bool newline() {
+		std::cout << std::endl;
 	}
 #endif
 }

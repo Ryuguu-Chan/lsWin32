@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string> // std::string
 
 #include <Windows.h> // DWORD, LPTSTR, PSID, PSECURITY_DESCRIPTOR, CreateFile
 #include <AclAPI.h>  // GetSecurityInfo
@@ -44,6 +45,7 @@ int main(int argc, char** argv) {
 					currentWorkingDirectory = filesystem::current_path();
 				}
 				for (auto const& dir_entry : filesystem::directory_iterator { currentWorkingDirectory }) {
+
 					if (dir_entry.path().filename().generic_string()[0] != '~' && dir_entry.path().filename().generic_string()[0] == '$') {
 						std::cout << dir_entry.path().filename().generic_string() << std::endl;
 					}
@@ -146,7 +148,24 @@ int main(int argc, char** argv) {
 					else if (bRtnBool == TRUE) {
 						std::wcout << fileAuthor; 
 					}
-					std::cout << std::endl;
+					Console::newline();
+				}
+			}
+			else if (Actions::SHOW_ALL_FILE_WITH_ESCAPE_CHARS(argv[1])) {
+				currentWorkingDirectory = filesystem::current_path();
+				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+
+					std::string str = dir_entry.path().filename().generic_string();
+
+					for (int i = 0; i < str.length(); i++) {
+						if (str[i] < 0x30 || str[i] > 0x7e) {
+							std::cout << "\\" << str[i];
+						}
+						else {
+							std::cout << str[i];
+						}
+						Console::newline();
+					}
 				}
 			}
 			else {
@@ -162,7 +181,7 @@ int main(int argc, char** argv) {
 		std::cout << dir_entry.path().filename().generic_string() << std::endl;
 	}
 
-	std::cout << std::endl;
+	Console::newline();
 
 	return EXIT_SUCCESS;
 }

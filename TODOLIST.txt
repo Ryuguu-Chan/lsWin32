@@ -1,0 +1,2 @@
+° debugger LS lorsqu'il rencotre des fichiers caches
+° faire en sorte qu'on puisse itérer tout les params
