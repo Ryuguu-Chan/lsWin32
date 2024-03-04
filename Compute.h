@@ -42,18 +42,8 @@ namespace Compute {
 	/*LPCWSTR*/ wchar_t* constCharToLPCWSTR(const char* str) {
 
 		wchar_t* out = new wchar_t[4096];
-
 		MultiByteToWideChar(CP_ACP, 0, str, -1, out, 4096);
-
 		return out;
-		/*
-
-		for (int i = 0; i < strlen(str); i++) {
-			out += str[i];
-		}
-
-		return out;
-		*/
 	}
 #endif
 }

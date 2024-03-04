@@ -151,6 +151,15 @@ int main(int argc, char** argv) {
 					Console::newline();
 				}
 			}
+			else if (Actions::SHOW_ONLY_DIRECTORIES(argv[1])) {
+				currentWorkingDirectory = filesystem::current_path();
+
+				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+					if (dir_entry.is_directory()) {
+						std::cout << dir_entry.path().filename().generic_string() << std::endl;
+					}
+				}
+			}
 			else {
 				std::cout << "error";
 				return EXIT_FAILURE;
