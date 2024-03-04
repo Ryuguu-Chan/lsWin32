@@ -161,10 +161,12 @@ int main(int argc, char** argv) {
 						if (str[i] < 0x30 || str[i] > 0x7e) {
 							std::cout << "\\" << str[i];
 						}
+						else if (str[i] == '\0') {
+							Console::newline();
+						}
 						else {
 							std::cout << str[i];
 						}
-						Console::newline();
 					}
 				}
 			}

@@ -26,7 +26,7 @@ namespace Console {
 		return csbi.dwCursorPosition;
 	}
 
-	bool newline() {
+	void newline() {
 		std::cout << std::endl;
 	}
 #endif
