@@ -160,6 +160,13 @@ int main(int argc, char** argv) {
 					}
 				}
 			}
+			else if (Actions::SHOW_ALL_FILE_WITH_QUOTES(argv[1])) {
+				currentWorkingDirectory = filesystem::current_path();
+
+				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+					std::cout << "\"" << dir_entry.path().filename().generic_string() << "\"" << std::endl;
+				}
+			}
 			else {
 				std::cout << "error";
 				return EXIT_FAILURE;

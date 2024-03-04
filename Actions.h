@@ -14,4 +14,8 @@ namespace Actions {
 	bool SHOW_ONLY_DIRECTORIES(const char* str) {
 		return Compute::strEquals(str, "-d") || Compute::strEquals(str, "--directory");
 	}
+
+	bool SHOW_ALL_FILE_WITH_QUOTES(const char* str) {
+		return Compute::strEquals(str, "-Q") || Compute::strEquals(str, "--quote-name");
+	}
 }
