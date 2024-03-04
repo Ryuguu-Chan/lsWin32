@@ -1,18 +1,18 @@
 #include <iostream>
 
-#include <Windows.h> // DWORD, GetFileAttributes
+#include <Windows.h> // DWORD, LPTSTR, PSID, PSECURITY_DESCRIPTOR, CreateFile
+#include <AclAPI.h>  // GetSecurityInfo
 
 // RUNS ON C++17 !!!
 // compiler used: Visual Studio C++ compiler
 #include <filesystem> 
-
-#include <string>
 
 #include "Compute.h"
 #include "appStrings.h"
 #include "Actions.h"
 #include "Console.h"
 
+#pragma comment(lib, "advapi32.lib")
 
 namespace filesystem = std::filesystem;
 
@@ -64,13 +64,90 @@ int main(int argc, char** argv) {
 						return EXIT_FAILURE;
 					}
 
+					LPTSTR fileAuthor = NULL;
+					LPTSTR domainName = NULL;
+					DWORD dwFileAuthor = 1;
+					DWORD dwDomainName = 1;
+					DWORD dwReturnCode = 0;
+					PSID pSidOwner = NULL;
+					PSECURITY_DESCRIPTOR pSD = NULL;
+					SID_NAME_USE eUse = SidTypeUnknown;
+					BOOL bRtnBool = TRUE;
+
+					LPCWSTR fileToLookUpTo = Compute::constCharToLPCWSTR(dir_entry.path().filename().generic_string().c_str());
+
 					HANDLE hFile = CreateFile(
-						dir_entry.path().filename().generic_string().c_str(),
-
+						fileToLookUpTo,
+						GENERIC_READ,
+						FILE_SHARE_READ,
+						NULL,
+						OPEN_EXISTING,
+						FILE_ATTRIBUTE_NORMAL,
+						NULL
 					);
-				}
 
-				return EXIT_SUCCESS;
+					dwReturnCode = GetSecurityInfo(
+						hFile,
+						SE_FILE_OBJECT,
+						OWNER_SECURITY_INFORMATION,
+						&pSidOwner,
+						NULL,
+						NULL,
+						NULL,
+						&pSD
+					);
+
+					bRtnBool = LookupAccountSid(
+						NULL,
+						pSidOwner,
+						fileAuthor,
+						(LPDWORD)&dwFileAuthor,
+						domainName,
+						(LPDWORD)&dwDomainName,
+						&eUse
+					);
+
+					// memory reallocation
+					fileAuthor = (LPTSTR)GlobalAlloc(GMEM_FIXED, dwFileAuthor * sizeof(wchar_t));
+
+					if (fileAuthor == NULL) {
+						DWORD dwErrorCode = GetLastError();
+						std::cout << "Something went wrong while reallocating the fileAuthor string: " << dwErrorCode << std::endl;
+						return EXIT_FAILURE;
+					}
+
+					domainName = (LPTSTR)GlobalAlloc(GMEM_FIXED, dwDomainName * sizeof(wchar_t));
+
+					// getting the file owner's name
+					bRtnBool = LookupAccountSid(
+						NULL,
+						pSidOwner,
+						fileAuthor,
+						(LPDWORD)&dwFileAuthor,
+						domainName,
+						(LPDWORD)&dwDomainName,
+						&eUse
+					);
+
+					if (bRtnBool == FALSE) {
+						DWORD errorCode = 0;
+
+						errorCode = GetLastError();
+						if (errorCode == ERROR_NONE_MAPPED) {
+							std::cout << "The file's author wasn't found" << std::endl;
+						}
+						else {
+							std::cout << "Something went wrong while looking at the file's author " << std::endl;
+
+						}
+
+						return EXIT_FAILURE;
+					}
+					else if (bRtnBool == TRUE) {
+						std::wcout << fileAuthor; 
+					}
+					std::cout << std::endl;
+				}
 			}
 			else {
 				std::cout << "error";
