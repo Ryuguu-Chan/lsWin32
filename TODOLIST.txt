@@ -1,2 +1,3 @@
+° tester les fichiers avec les caracteres non ASCII
 ° debugger LS lorsqu'il rencotre des fichiers caches
 ° faire en sorte qu'on puisse itérer tout les params
