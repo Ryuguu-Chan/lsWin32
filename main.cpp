@@ -151,25 +151,6 @@ int main(int argc, char** argv) {
 					Console::newline();
 				}
 			}
-			else if (Actions::SHOW_ALL_FILE_WITH_ESCAPE_CHARS(argv[1])) {
-				currentWorkingDirectory = filesystem::current_path();
-				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
-
-					std::string str = dir_entry.path().filename().generic_string();
-
-					for (int i = 0; i < str.length(); i++) {
-						if (str[i] < 0x30 || str[i] > 0x7e) {
-							std::cout << "\\" << str[i];
-						}
-						else if (str[i+1] == '\0') {
-							std::cout << str[i] << std::endl;
-						}
-						else {
-							std::cout << str[i];
-						}
-					}
-				}
-			}
 			else {
 				std::cout << "error";
 				return EXIT_FAILURE;

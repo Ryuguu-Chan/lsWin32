@@ -13,7 +13,7 @@ namespace Actions {
 		return Compute::strEquals(str, "--author");
 	}
 
-	bool SHOW_ALL_FILE_WITH_ESCAPE_CHARS(const char* str) {
-		return (Compute::strEquals(str, "--escape") || Compute::strEquals(str, "-b"));
+	bool SHOW_ONLY_DIRECTORIES(const char* str) {
+		return Compute::strEquals(str, "-d");
 	}
 }
