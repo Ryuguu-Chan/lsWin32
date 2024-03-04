@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string> // std::string
+#include <vector> // std::vector<T>
 
 #include <Windows.h> // DWORD, LPTSTR, PSID, PSECURITY_DESCRIPTOR, CreateFile
 #include <AclAPI.h>  // GetSecurityInfo
@@ -166,6 +167,39 @@ int main(int argc, char** argv) {
 				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
 					std::cout << "\"" << dir_entry.path().filename().generic_string() << "\"" << std::endl;
 				}
+			}
+			else if (Actions::SHOW_ALL_FILES_RECURSIVE(argv[1])) {
+
+				std::vector<filesystem::directory_entry> dirs;
+
+				currentWorkingDirectory = filesystem::current_path();
+
+				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+					if (dir_entry.is_directory()) {
+						dirs.push_back(dir_entry);
+					}
+
+					std::cout << dir_entry.path().filename().generic_string() << std::endl;
+				}
+
+				do
+				{
+					currentWorkingDirectory = dirs.at(0);
+
+					for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+						
+						if (dir_entry.is_directory()) {
+							dirs.push_back(dir_entry);
+						}
+
+						std::cout << dir_entry.path().filename().generic_string() << std::endl;
+
+					}
+
+					// removing the actual dir
+					dirs.erase(dirs.begin());
+
+				} while (dirs.size() > 0);
 			}
 			else {
 				std::cout << "error";

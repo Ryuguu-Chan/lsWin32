@@ -18,4 +18,8 @@ namespace Actions {
 	bool SHOW_ALL_FILE_WITH_QUOTES(const char* str) {
 		return Compute::strEquals(str, "-Q") || Compute::strEquals(str, "--quote-name");
 	}
+
+	bool SHOW_ALL_FILES_RECURSIVE(const char* str) {
+		return Compute::strEquals(str, "-R") || Compute::strEquals(str, "--recursive");
+	}
 }
