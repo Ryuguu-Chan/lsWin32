@@ -26,4 +26,12 @@ namespace Actions {
 	bool SHOW_ALL_FILES_AND_SORT_BY_NEWEST_FIRST(const char* str) {
 		return Compute::strEquals(str, "-t");
 	}
+
+	bool SHOW_HELP_TEXT(const char* str) {
+		return Compute::strEquals(str, "--help") || Compute::strEquals(str, "-h");
+	}
+
+	bool SHOW_APP_VERSION(const char* str) {
+		return Compute::strEquals(str, "--version");
+	}
 }

@@ -234,6 +234,14 @@ int main(int argc, char** argv) {
 
 				files.clear();
 			}
+			else if (Actions::SHOW_HELP_TEXT(argv[1])) {
+				std::cout << appStrings::SYNTAX_HELP_STR << std::endl;
+				return EXIT_SUCCESS;
+			}
+			else if (Actions::SHOW_APP_VERSION(argv[1])) {
+				std::cout << appStrings::APP_VERSION_STR << std::endl;
+				return EXIT_SUCCESS;
+			}
 			else {
 				std::cout << "error";
 				return EXIT_FAILURE;
