@@ -128,11 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h" />
     <ClInclude Include="appStrings.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Sort.h" />
