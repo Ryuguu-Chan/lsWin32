@@ -22,4 +22,8 @@ namespace Actions {
 	bool SHOW_ALL_FILES_RECURSIVE(const char* str) {
 		return Compute::strEquals(str, "-R") || Compute::strEquals(str, "--recursive");
 	}
+
+	bool SHOW_ALL_FILES_AND_SORT_BY_NEWEST_FIRST(const char* str) {
+		return Compute::strEquals(str, "-t");
+	}
 }

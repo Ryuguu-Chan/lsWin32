@@ -135,6 +135,7 @@
     <ClInclude Include="appStrings.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="Sort.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string> // std::string
 #include <vector> // std::vector<T>
+#include <chrono> // std::chrono
 
 #include <Windows.h> // DWORD, LPTSTR, PSID, PSECURITY_DESCRIPTOR, CreateFile
 #include <AclAPI.h>  // GetSecurityInfo
@@ -17,6 +18,13 @@
 #pragma comment(lib, "advapi32.lib")
 
 namespace filesystem = std::filesystem;
+
+bool sortFunction(std::filesystem::directory_entry a, std::filesystem::directory_entry b) {
+	std::chrono::duration a_time = a.last_write_time().time_since_epoch();
+	std::chrono::duration b_time = b.last_write_time().time_since_epoch();
+
+	return (a_time > b_time);
+}
 
 int main(int argc, char** argv) {
 
@@ -200,6 +208,31 @@ int main(int argc, char** argv) {
 					dirs.erase(dirs.begin());
 
 				} while (dirs.size() > 0);
+			}
+			else if (Actions::SHOW_ALL_FILES_AND_SORT_BY_NEWEST_FIRST(argv[1])) {
+
+				std::vector<filesystem::directory_entry> files;
+
+				// TODO: utiliser std::filesystem::directory_entry::last_write_time
+				
+				currentWorkingDirectory = filesystem::current_path();
+
+				for (auto const& dir_entry : filesystem::directory_iterator{ currentWorkingDirectory }) {
+					files.push_back(dir_entry);
+
+					std::chrono::duration dateTime = dir_entry.last_write_time().time_since_epoch();
+
+					// debug
+					// std::cout << dateTime.count() << std::endl;
+				}
+
+				std::sort(files.begin(), files.end(), sortFunction);
+				
+				for (auto it = files.begin(); it != files.end(); it++) {
+					std::cout << it->path().filename().generic_string() << std::endl;
+				}
+
+				files.clear();
 			}
 			else {
 				std::cout << "error";
