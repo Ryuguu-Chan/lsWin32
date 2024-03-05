@@ -11,6 +11,7 @@ Global
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Description = a slightly different port of LS
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{80567217-2FD6-479E-921A-90F9A2DE29F9}.Debug|x64.ActiveCfg = Debug|x64

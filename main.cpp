@@ -47,8 +47,6 @@ int main(int argc, char** argv) {
 		else {
 			
 			if (Actions::SHOW_ALL_DIRECTORIES(argv[1])) {
-
-				std::cout << "show everything!!" << std::endl;
 				
 				if (argc == 2) {
 					currentWorkingDirectory = filesystem::current_path();
@@ -243,7 +241,7 @@ int main(int argc, char** argv) {
 				return EXIT_SUCCESS;
 			}
 			else {
-				std::cout << "error";
+				std::cout << appStrings::SYNTAX_HELP_STR << std::endl;
 				return EXIT_FAILURE;
 			}
 
